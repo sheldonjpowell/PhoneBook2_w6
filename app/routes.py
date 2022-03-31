@@ -8,13 +8,13 @@ from app.forms import SignUpForm
 @app.route('/')
 def index():
 	title = 'Home'
-	user = {'id': 1, 'username': 'bstanton', 'email': 'brians@codingtemple.com'}
+	user = {'id': 1, 'username': 'spowell', 'email': 'spowell@codingtemple.com'}
 	posts = [
 			{'id': 1, 
 			'title': 'March', 
-			'body': 'I love march'}, 
+			'body': 'I hate march'}, 
 			]
-	return render_template('index.html', title=title, posts=posts)
+	return render_template('index.html', current_user=user, title=title, posts=posts)
 
 
 @app.route('/signup', methods=["GET", "POST"])
