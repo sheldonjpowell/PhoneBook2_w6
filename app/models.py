@@ -39,6 +39,12 @@ class Post(db.Model):
     body = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        db.session.add(self)
+        db.session.commit()
 
     def __repr__(self):
         return f"<Post|{self.title}>"
@@ -49,9 +55,13 @@ class Address(db.Model):
     name = db.Column(db.String(50), unique=True, nullable=False)
     address = db.Column(db.String(100), unique=True, nullable=False)
     phonenumber = db.Column(db.String(15), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
-
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        db.session.add(self)
+        db.session.commit()
 
     def __repr__(self):
         return f"<Address {self.id} | {self.name}>"
