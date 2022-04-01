@@ -17,14 +17,17 @@
 
         <nav class="nav bg-dark d-flex justify-content-around">
             <a href="{{ url_for('index') }}" class="link-light">Home</a>
+            <a href="{{ url_for('address') }}" class="link-light">Register Address</a>
             <a href="{{ url_for('signup') }}" class="link-light">Sign Up</a>
      
         </nav>
         
         <div class="container">
-           {% block content %}
-        
-           {% endblock content %}
+            {% include 'alert_message.html' %}
+
+            {% block content %}
+            
+            {% endblock content %}
         </div>
 
         
