@@ -43,9 +43,9 @@ def address():
         name = form.name.data
         address = form.address.data
         phonenumber = form.phonenumber.data
-        user = Address.query.filter_by(name=name).first()
+        # user = Address.query.filter_by(name=name).first()
         new_address = Address(name=name, address=address, phonenumber=phonenumber)
-        flash(f'{user} has successfully added address', 'success')
+        flash(f'{name} has successfully added address', 'success')
         return redirect(url_for('index'))
         
     return render_template('address.html', title=title, form=form)
@@ -83,9 +83,16 @@ def create_post():
     if form.validate_on_submit():
         title =  form.title.data
         body = form.body.data
-        new_post = Post(title=title, body=body)
+        new_post = Post(title=title, body=body, user_id=current_user.id)
         flash(f"{new_post.title} has been created", 'success')
         return redirect(url_for('index'))
 
     return render_template('create_post.html', title=title, form=form)
    
+@app.route('/my_posts')
+@login_required
+def my_posts():
+    title = 'My Posts'
+    form = PostForm()
+    posts = current_user.posts.all()
+    return render_template('my_posts.html', title=title, posts=posts, form=form)

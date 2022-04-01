@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(256), nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    address = db.relationship('Address')
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -54,7 +55,7 @@ class Address(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
     address = db.Column(db.String(100), unique=True, nullable=False)
-    phonenumber = db.Column(db.String(15), nullable=False)
+    phonenumber = db.Column(db.String(15), unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
