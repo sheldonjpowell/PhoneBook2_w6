@@ -17,3 +17,8 @@ class AddressForm(FlaskForm):
     address = StringField('Address', validators=[DataRequired()])
     phonenumber = StringField('Phonenumber', validators=[DataRequired()])
     submit = SubmitField('Add Address')
+
+class Loginform(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Log In')
