@@ -1,8 +1,8 @@
 from app import app, forms
 from flask import redirect, render_template, url_for, flash
 # # from flask_login import login
-from app.forms import SignUpForm
-from app.models import User
+from app.forms import SignUpForm, AddressForm
+from app.models import User, Address
 
 
 @app.route('/')
@@ -32,3 +32,16 @@ def signup():
         return redirect(url_for('index'))
 
     return render_template('signup.html', title=title, form=form)
+
+
+@app.route('/address', methods=["GET", "POST"])
+def register_address():
+    title = 'Address'
+    form = AddressForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        address = form.address.data
+        phonenumber = form.phonenumber.data
+        Address(name=name, address=address, phonenumber=phonenumber)
+        return redirect(url_for('index'))
+    return render_template('address.html', title=title, form=form)

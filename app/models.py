@@ -36,3 +36,26 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"<Post|{self.title}>"
+
+
+class Address(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True, nullable=False)
+    address = db.Column(db.String(100), unique=True, nullable=False)
+    phonenumber = db.Column(db.String(15), nullable=False)
+    date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    
+
+
+    def __repr__(self):
+        return f"<Address {self.id} | {self.name}>"
+
+
+    def __str__(self):
+        return f"""
+        Name: {self.name}
+        Address: {self.address}
+        Phone: {self.phonenumber}
+        """
+
+  

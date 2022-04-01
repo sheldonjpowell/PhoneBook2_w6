@@ -9,3 +9,11 @@ class SignUpForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_pass = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
+
+
+
+class AddressForm(FlaskForm):
+    name = StringField('name', validators=[DataRequired()])
+    address = StringField('Address', validators=[DataRequired()])
+    phonenumber = StringField('Phonenumber', validators=[DataRequired()])
+    submit = SubmitField('Add Address')
