@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <h1>My Address</h1>
+
+    {% for a in address %}
+        <div class="card mb-3" style="max-width: 18rem;">
+            <div class="card-header">
+                <strong>{{ a.name.title() }}</strong>
+            </div>
+            <div class="card-body text-dark">
+                <p class="card-title">Address: {{ a.address }}</p>
+                <p class="card-text">PhoneNumber: {{ a.phonenumber }}</p>
+                <div class="pb-1">
+                    <cite>&mdash; {{ a.author }}</cite>
+                </div>
+                <a href="#" class="btn btn-primary ">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock content %}

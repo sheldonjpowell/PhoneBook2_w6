@@ -18,9 +18,9 @@ def signup():
         users_with_that_info = User.query.filter((User.username==username)|(User.email==email)).all()
         if users_with_that_info:
             flash(f"There is already a username and/or email", "danger")
-            return redirect(url_for('signup'))
+            return redirect(url_for('auth.signup'))
 
-        new_user = User(username=username, email=eblog.mail, password=password)
+        new_user = User(username=username, email=email, password=password)
 
         flash(f"{new_user.username} has succesfully signed up.", "success")
         return redirect(url_for('blog.index'))

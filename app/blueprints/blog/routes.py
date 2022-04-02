@@ -22,10 +22,15 @@ def address():
         address = form.address.data
         phonenumber = form.phonenumber.data
         # user = Address.query.filter_by(name=name).first()
-        new_address = Address(name=name, address=address, phonenumber=phonenumber)
+        users_with_that_info = Address.query.filter((Address.name==name))
+        if users_with_that_info:
+            flash(f"There is already a name addressed to your number", "danger")
+            return redirect(url_for('blog.address'))
+
+        # new_address = Address(name=name, address=address, phonenumber=phonenumber, user_id=current_user.id)
         flash(f'{name} has successfully added address', 'success')
         return redirect(url_for('blog.index'))
-        
+
     return render_template('address.html', title=title, form=form)
 
 
@@ -50,3 +55,10 @@ def my_posts():
     form = PostForm()
     posts = current_user.posts.all()
     return render_template('my_posts.html', title=title, posts=posts, form=form)
+
+@blog.route('/my_address')
+def my_address():
+    title = 'My Address'
+    form = AddressForm()
+    address = current_user.address.all()
+    return render_template('my_address.html', title=title, address=address, form=form)
