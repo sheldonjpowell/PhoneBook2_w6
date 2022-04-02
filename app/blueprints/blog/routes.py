@@ -1,3 +1,6 @@
+from turtle import title
+
+from app.blueprints.auth.forms import SearchForm
 from . import blog
 from flask import redirect, render_template, url_for, flash
 from flask_login import login_required, current_user
@@ -59,3 +62,42 @@ def my_address():
     form = AddressForm()
     address = current_user.address.all()
     return render_template('my_address.html', title=title, address=address, form=form)
+
+@blog.route('/search_posts', methods=['GET', 'POST'])
+def search_posts():
+    title = 'Search'
+    form =  SearchForm()
+    posts = []
+    if form.validate_on_submit():
+        term = form.search.data
+        posts = Post.query.filter( (Post.title.ilike(f'%{term}%')) | (Post.body.ilike(f'%{term}%')) ).all()
+
+    return render_template('search_posts.html', title=title, posts=posts, form=form)
+
+
+@blog.route('/posts/<post_id>')
+@login_required
+def single_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    title = post.title
+    return render_template('post_detail.html', title=title, post=post)
+
+
+@blog.route('/edit_posts/<post_id>')
+@login_required
+def edit_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        flash('You do not have edit access to this post.', 'danger')
+        return redirect(url_for('blog.my_posts'))
+    title= f"Edit {post.title}"
+
+    return render_template('post_edit.html', title=title, post=post)
+
+
+# @blog.route('/address/<address_id>')
+
+# def single_addresss(address_id):
+#     address = Address.query.get_or_404(address_id)
+#     return str(address)
+
