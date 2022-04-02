@@ -1,15 +1,14 @@
-# from app import app
-# from flask import redirect, render_template, url_for, flash
+from app import app
+from flask import redirect, url_for
 # from flask_login import login_required, current_user
 # from app.forms import AddressForm, PostForm
 # from app.models import Address, Post
 
 
-# @app.route('/')
-# def index():
-# 	title = 'Home'
-# 	posts = Post.query.all()
-# 	return render_template('index.html', title=title, posts=posts)
+@app.route('/')
+def index():
+    return redirect(url_for('blog.index'))
+
 
 
 

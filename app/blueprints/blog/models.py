@@ -22,9 +22,9 @@ class Post(db.Model):
 
 class Address(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True, nullable=False)
-    address = db.Column(db.String(100), unique=True, nullable=False)
-    phonenumber = db.Column(db.String(15), unique=True, nullable=False)
+    name = db.Column(db.String(50), nullable=False)
+    address = db.Column(db.String(100), nullable=False)
+    phonenumber = db.Column(db.String(15), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     

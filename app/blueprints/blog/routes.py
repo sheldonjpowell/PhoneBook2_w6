@@ -14,6 +14,7 @@ def index():
 
 
 @blog.route('/address', methods=["GET", "POST"])
+@login_required
 def address():
     title = 'Address'
     form = AddressForm()
@@ -22,12 +23,8 @@ def address():
         address = form.address.data
         phonenumber = form.phonenumber.data
         # user = Address.query.filter_by(name=name).first()
-        users_with_that_info = Address.query.filter((Address.name==name))
-        if users_with_that_info:
-            flash(f"There is already a name addressed to your number", "danger")
-            return redirect(url_for('blog.address'))
-
-        # new_address = Address(name=name, address=address, phonenumber=phonenumber, user_id=current_user.id)
+        # users_with_that_info = Address.query.filter((Address.name==name))
+        new_address = Address(name=name, address=address, phonenumber=phonenumber, user_id=current_user.id)
         flash(f'{name} has successfully added address', 'success')
         return redirect(url_for('blog.index'))
 

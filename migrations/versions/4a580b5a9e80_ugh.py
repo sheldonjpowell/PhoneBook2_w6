@@ -1,8 +1,8 @@
-"""and again
+"""ugh
 
-Revision ID: 4ca9ce7d2b17
+Revision ID: 4a580b5a9e80
 Revises: 
-Create Date: 2022-04-01 13:19:20.544092
+Create Date: 2022-04-02 12:01:03.899061
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '4ca9ce7d2b17'
+revision = '4a580b5a9e80'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,9 +36,7 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('date_created', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('address'),
-    sa.UniqueConstraint('name')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('post',
     sa.Column('id', sa.Integer(), nullable=False),
