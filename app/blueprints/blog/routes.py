@@ -35,6 +35,54 @@ def address():
     return render_template('address.html', title=title, form=form)
 
 
+
+@blog.route('/my_address')
+def my_address():
+    title = 'My Address'
+    form = AddressForm()
+    address = current_user.address.all()
+    return render_template('my_address.html', title=title, address=address, form=form)
+
+@blog.route('/address/<address_id>')
+@login_required
+def single_address(address_id):
+    address = Address.query.get_or_404(address_id)
+    title = address.name
+    return render_template('address_detail.html', title=title, address=address)
+
+@blog.route('/edit_address/<address_id>', methods=["GET", "POST"])
+@login_required
+def edit_address(address_id):
+    address = Address.query.get_or_404(address_id)
+    if address.author != current_user:
+        flash('You do not have edit access to this post.', 'danger')
+        return redirect(url_for('blog.my_address'))
+    title = f"Edit {address.name}"
+    form = AddressForm()
+    if form.validate_on_submit():
+        address.update(**form.data)
+        flash(f'{address.name} has been updated', 'warning')
+        return redirect(url_for('blog.my_address'))
+    return render_template('address_edit.html', title=title , address=address, form=form)
+
+
+@blog.route('/delete_address/<address_id>')
+@login_required
+def delete_address(address_id):
+    address = Address.query.get_or_404(address_id)
+    if address.author != current_user:
+        flash('You do not have delete access to the address', 'danger')
+    else:
+        address.delete()
+        flash(f'{address.name} has been deleted.', 'secondary')
+    print(current_user)
+    return redirect(url_for('blog.my_address'))
+ 
+
+
+
+
+
 @blog.route('/create_post', methods=["GET","POST"] )
 @login_required
 def create_post():
@@ -48,6 +96,8 @@ def create_post():
         return redirect(url_for('blog.index'))
 
     return render_template('create_post.html', title=title, form=form)
+
+
    
 @blog.route('/my_posts')
 @login_required
@@ -57,12 +107,8 @@ def my_posts():
     posts = current_user.posts.all()
     return render_template('my_posts.html', title=title, posts=posts, form=form)
 
-@blog.route('/my_address')
-def my_address():
-    title = 'My Address'
-    form = AddressForm()
-    address = current_user.address.all()
-    return render_template('my_address.html', title=title, address=address, form=form)
+
+
 
 @blog.route('/search_posts', methods=['GET', 'POST'])
 def search_posts():
@@ -76,12 +122,14 @@ def search_posts():
     return render_template('search_posts.html', title=title, posts=posts, form=form)
 
 
+
 @blog.route('/posts/<post_id>')
 @login_required
 def single_post(post_id):
     post = Post.query.get_or_404(post_id)
     title = post.title
     return render_template('post_detail.html', title=title, post=post)
+
 
 
 @blog.route('/edit_posts/<post_id>', methods=["GET", "POST"] )
@@ -98,6 +146,8 @@ def edit_post(post_id):
         flash(f'{post.title} has been updated', 'warning')
         return redirect(url_for('blog.my_posts'))
     return render_template('post_edit.html', title=title, post=post, form=form)
+
+
 
 @blog.route('/delete_posts/<post_id>')
 @login_required

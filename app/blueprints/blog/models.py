@@ -55,5 +55,16 @@ class Address(db.Model):
         Phone: {self.phonenumber}
         """
 
+    def update(self, **kwargs):
+        for key, value in kwargs.items():
+            if key in {'name', 'address','phonenumber'}:
+                setattr(self, key, value)
+            db.session.commit()
+    
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+ 
+
 
   
