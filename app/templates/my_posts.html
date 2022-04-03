@@ -15,6 +15,7 @@
                 </div>
                 <a href="{{ url_for('blog.edit_post', post_id=p.id) }}" class="btn btn-success">Edit</a>
                 <button class="btn btn-danger" type="button"  data-bs-toggle="modal" data-bs-target="#deleteModal{{ p.id }}">Delete</button>
+                <a href="{{ url_for('blog.edit_post', post_id=p.id) }}" class="btn btn-success">Add To Cart</a>
             </div>
         </div>
   

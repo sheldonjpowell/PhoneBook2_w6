@@ -16,6 +16,12 @@ def index():
 	return render_template('index.html', title=title, posts=posts)
 
 
+@blog.route('/cart')
+@login_required
+def cart():
+    return 
+
+
 
 @blog.route('/address', methods=["GET", "POST"])
 @login_required
