@@ -3,26 +3,22 @@
 
 {% block content %}
 
-    {% if current_user.is_authenticated %}
-    <h1>Welcome {{ current_user.username }}!</h1>
-    {% else %}
-    <h1>Hello please Sign up/Log in</h1>
-    {% endif %}
+  <p>This is where i want single products to be from id listings</p>
+   
+  {% for p in posts %}
 
-     <p>
-         
-         
-    </p>
-    <div class="row">
-        
-        {% for p in posts %}
     
-        <div class="d-flex">
+   
+    </p>
+    <div class="container row">
+
+    
+        <div class="d-flex justify-content-center col-sm">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"></h5>
                     <h1>{{ p.title }} {{ p.id }}</h1>
-                    <div class="d-flex justify-content-center">
+                    <div>
                         <img src="https://via.placeholder.com/300C/O https://placeholder.com/" alt="">
                     </div>
                     <div>
@@ -30,7 +26,7 @@
                         <p>{{ p.price }}</p>
                         <h4></h4>
                     </div>
-                    <a href="{{ url_for('blog.single_post', post_id=p.id) }}" class="btn btn-primary">Add To Cart</a>
+                    <a href="" class="btn btn-primary">Add To Cart</a>
                     
                 </div>
             </div>
@@ -38,5 +34,4 @@
     
     </div>  
     {% endfor %}
-
 {% endblock content %}

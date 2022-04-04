@@ -44,7 +44,7 @@ def login():
         else:
             flash('Username and/or password is incorrect', 'danger')
         
-    return render_template('login.html', title=title, form=form)
+    return render_template('login.html', title=title, form=form) 
 
 
 

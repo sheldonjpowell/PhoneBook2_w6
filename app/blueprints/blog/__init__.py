@@ -6,4 +6,4 @@ blog = Blueprint('blog',__name__, url_prefix='/blog')
 
 
 
-from . import routes, models
+from . import routes, models, forms

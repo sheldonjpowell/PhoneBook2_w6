@@ -2,18 +2,24 @@
 
 {% block content %}
 
-<h1>Create A Post</h1>
-<form action="" method="post">
+<div class="text-center">
+    <h1>Create UUZ Product</h1>
+</div>
+
+<form class="d-flex justify-content-center "action="" method="post">
     {{ form.csrf_token }}
-    <div class="form-group">
+    <div class="form-group ">
         
         {{ form.title.label }}
-        {{ form.title(class='form-control', placeholder='Create Title Goes here') }}
+        {{ form.title(class='form-control w-100', placeholder='Name your product') }}
 
         {{ form.body.label }}
-        {{ form.body(class='form-control', placeholder='Body')}}
+        {{ form.body(class='form-control w-100', placeholder='Breif description')}}
 
-        {{ form.submit(class='btn btn-outline-primary w-100')}}
+        {{ form.price.label }}
+        {{ form.price(class='form-control w-100', placeholder='Name your price')}}
+        <br>
+        {{ form.submit(class='btn btn-primary w-100', value='Edit')}}
     </div>
 
 </form>
